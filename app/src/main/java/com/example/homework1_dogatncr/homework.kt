@@ -1,16 +1,19 @@
 package com.example.homework1_dogatncr
 
+/*      Implemented by Doga Tuncer
+ */
+
 //function for deciding whether the char is suitable for a username in Question 1.
 fun isLetterNumUnder (char: Char): Boolean {
     return (char in 'a'..'z' || char in 'A'..'Z') || (char in '0'..'9') || (char == '_')
 }
 //Question 1 Solution
 fun stringValidation (str: String):String {
-    if (str.length in (4..25)) {
-        if (str[0] in 'a'..'z' || str[0] in 'A'..'Z') {
-            for (char in str){
-                if (isLetterNumUnder(char)) {
-                    if (str.last() != '_') {
+    if (str.length in (4..25)) {//length control
+        if (str[0] in 'a'..'z' || str[0] in 'A'..'Z') {//starting letter control
+            for (char in str){//iteration over string
+                if (isLetterNumUnder(char)) {//util function that we mentioned above
+                    if (str.last() != '_') {//last char control
                         return ("true")
                     }
                     else{
@@ -39,9 +42,9 @@ fun stringValidation (str: String):String {
 
 //Question 2 Solution
 fun aVeryBigSum (array: Array<Long>) : Long {
-var sum : Long =0
+var sum : Long =0 //parameter and sum variable defined as long type to prevent out of memory error.
 for (element in array) {
-    sum += element.toLong()
+    sum += element
 }
 return sum
 }
@@ -49,7 +52,7 @@ return sum
 //Question 4 Solution
 private fun firstFactorial(num: Int): Int {
     var factorial = 1
-    for (x in 1..num) {
+    for (x in 1..num) { //iteration 'till our parameter.
         factorial *= x
     }
     return factorial
@@ -57,30 +60,30 @@ private fun firstFactorial(num: Int): Int {
 
 //Question 5 Solution
 private fun questionsMarks(str: String): String {
-    var remaining = 2
-    var sum = 0
-    var questioncount = 0
+    var remaining = 2 //for checking whether the sum includes both numbers
+    var sum = 0 // will update for every number found
+    var questioncount = 0 //for counting questionMarks
 
 
     for (x in str) {
-        if (x in '0'..'9'){
+        if (x in '0'..'9'){ //condition for chars that can convert to integer.
             if(remaining > 0){
                 sum += x.digitToInt()
                 remaining --
             }
         }
-        else if(x == '?' && remaining !=2) {
+        else if(x == '?' && remaining !=2) { //condition for question marks.
             questioncount ++
         }
         else {
-            //do nothing
+            //do nothing because we don't need to process other chars.
         }
 
 
-        if (remaining == 0 && sum == 10 && questioncount ==3){
+        if (remaining == 0 && sum == 10 && questioncount ==3){ //check whether the expected conditions are met.
             return "true"
         }
-        else if (remaining == 0){
+        else if (remaining == 0){ //if expected conditions are not met and there is no remaining sum left, start iteration from the last sum element.
             remaining = 2
             sum = x.digitToInt()
             questioncount = 0
